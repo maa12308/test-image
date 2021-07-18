@@ -2,42 +2,32 @@
 
 @section('content')
 
-    <h1>一覧</h1>
-
     @if (count($items) > 0)
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>id</th>
-                    <th>メッセージ</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($items as $item)
-                <tr>
-                    <td>{{ $item->id }}</td>
-                    <td>{{ $item->bland }}</td>
-                    <td>{{ $item->type }}</td>
-                    <td>{{ $item->area }}</td>
-                    <td>{{ $item->alcohol_content }}</td>
-                    <td>{{ $item->distillery }}</td>
-                    <td>{{ $item->memo }}</td>
-                </tr>
-                <tr>
-                    {{-- 詳細ページへのリンク --}}
-                    <td>{!! link_to_route('items.show', $item->id, ['item' => $item->id]) !!}</td>
-                    <td>{{ $item->bland }}</td>
-                    <td>{{ $item->type }}</td>
-                    <td>{{ $item->area }}</td>
-                    <td>{{ $item->alcohol_content }}</td>
-                    <td>{{ $item->distillery }}</td>
-                    <td>{{ $item->memo }}</td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
+   
+    <div class="wrapper">
+        <div class="row">
+        @foreach ($items as $item)
+            
+            <div class="col-lg-4">
+                <div class="card">
+                <img src="{{ $item->image }}" class="card-img-top">
+                    <div class="card-body">
+                    <h5 class="card-title">{{ $item->bland }}</h5>
+                    <a class="btn btn-outline-secondary btn-block" {!! link_to_route('items.show','詳細', ['item' => $item->id]) !!}</a>
+                    </div>
+                </div>
+            </div>
+            
+            
+        @endforeach
+        </div>
+    </div>
+    
     @endif
     
-    {!! link_to_route('items.create', '追加', [], ['class' => 'btn btn-primary']) !!}
-
+    <div class="pagination justify-content-center">
+    {{ $items->links() }}
+    </div>
+    
 @endsection
+

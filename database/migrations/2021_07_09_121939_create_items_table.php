@@ -21,6 +21,7 @@ class CreateItemsTable extends Migration
             $table->string('alcohol_content');
             $table->string('distillery');
             $table->text('memo');
+            $table->string('image');
             $table->timestamps();
         });
     }

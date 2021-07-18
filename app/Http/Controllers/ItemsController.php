@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Item;
+use Storage;
 
 class ItemsController extends Controller
 {
@@ -15,8 +16,8 @@ class ItemsController extends Controller
      */
     public function index()
     {
-        $items = Item::all();
-        
+        $items = Item::paginate(6);
+
         return view('items.index', [
             'items' => $items,
         ]);
@@ -31,10 +32,11 @@ class ItemsController extends Controller
     {
         $item = new Item;
 
-        // メッセージ作成ビューを表示
         return view('items.create', [
             'item' => $item,
         ]);
+        
+        return redirect('/');
     }
 
     /**
@@ -46,16 +48,40 @@ class ItemsController extends Controller
     public function store(Request $request)
     {
         
+        $request->validate([
+            'bland' => 'required|max:255',
+            'type' => 'nullable|max:255',
+            'area' => 'nullable|max:255',
+            'alcohol_content' => 'nullable|max:255',
+            'distillery' => 'nullable|max:255',
+            'memo' => 'nullable|max:255',
+            'image' => 'required|file|image|mimes:jpeg,png',
+        ]);
+        
         $item = new Item;
+        
         $item->bland = $request->bland;
         $item->type = $request->type;
         $item->area = $request->area;
         $item->alcohol_content = $request->alcohol_content;
         $item->distillery = $request->distillery;
         $item->memo = $request->memo;
+        
+        $item->user_id = $request->user()->id;
+        
+        if ($request->hasfile('image')) {
+        $image = $request->file('image');
+        $path = Storage::disk('s3')->putFile('test', $image, 'public');
+        $item->image = Storage::disk('s3')->url($path);
         $item->save();
-
         return redirect('/');
+        
+        } else{
+            return redirect('/items/create');
+        }
+
+        
+        
     }
 
     /**
@@ -83,7 +109,6 @@ class ItemsController extends Controller
     {
         $item = Item::findOrFail($id);
 
-        // メッセージ編集ビューでそれを表示
         return view('items.edit', [
             'item' => $item,
         ]);
@@ -98,18 +123,36 @@ class ItemsController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'bland' => 'required|max:255',
+            'type' => 'nullable|max:255',
+            'area' => 'nullable|max:255',
+            'alcohol_content' => 'nullable|max:255',
+            'distillery' => 'nullable|max:255',
+            'memo' => 'nullable|max:255',
+            'image' => 'required|file|image|mimes:jpeg,png',
+        ]);
+        
         $item = Item::findOrFail($id);
-        // 更新
+        
         $item->bland = $request->bland;
         $item->type = $request->type;
         $item->area = $request->area;
         $item->alcohol_content = $request->alcohol_content;
         $item->distillery = $request->distillery;
         $item->memo = $request->memo;
+        
+        $item->user_id = $request->user()->id;
+        
+         if ($request->hasfile('image')) {
+        $image = $request->file('image');
+        $path = Storage::disk('s3')->putFile('test', $image, 'public');
+        $item->image = Storage::disk('s3')->url($path);
         $item->save();
-
-        // トップページへリダイレクトさせる
         return redirect('/');
+        } else{
+            return back();
+        }
     }
 
     /**
@@ -120,11 +163,14 @@ class ItemsController extends Controller
      */
     public function destroy($id)
     {
-         $item = Item::findOrFail($id);
-        // 削除
-        $item->delete();
+        $item = Item::findOrFail($id);
+        
+        if (\Auth::id() === $item->user_id) {
+            $item->delete();
+        }
 
         // トップページへリダイレクトさせる
         return redirect('/');
     }
+    
 }
