@@ -37,6 +37,7 @@
             <div class="polaroids">
             <img src="{{ $item->image }}" class="img-fluid">
             </div>
+             @if (Auth::id() == $item->user_id)
             <div class="d-flex">
             {{-- 編集ページへのリンク --}}
             {!! link_to_route('items.edit', '編集', ['item' => $item->id], ['class' => 'btn btn-outline-info']) !!}
@@ -44,6 +45,8 @@
             {!! Form::model($item, ['route' => ['items.destroy', $item->id], 'method' => 'delete']) !!}
                 {!! Form::submit('削除', ['class' => 'btn btn-outline-dark']) !!}
             {!! Form::close() !!}
+            @endif
+            
             </div>
         </div>
         

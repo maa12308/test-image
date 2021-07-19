@@ -109,9 +109,14 @@ class ItemsController extends Controller
     {
         $item = Item::findOrFail($id);
 
-        return view('items.edit', [
+        if (\Auth::id() === $item->user_id) {
+            return view('items.edit', [
             'item' => $item,
         ]);
+        } else {
+            return back();
+        }
+
     }
 
     /**
@@ -169,8 +174,7 @@ class ItemsController extends Controller
             $item->delete();
         }
 
-        // トップページへリダイレクトさせる
-        return redirect('/');
+        return back();
     }
     
 }
