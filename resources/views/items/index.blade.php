@@ -4,11 +4,11 @@
 
     @if (count($items) > 0)
    
-    <div class="wrapper">
+    <div class="container">
         <div class="row">
         @foreach ($items as $item)
             
-            <div class="col-lg-4">
+            <div class="col-4">
                 <div class="card">
                 <img src="{{ $item->image }}" class="card-img-top">
                     <div class="card-body">
