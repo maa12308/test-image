@@ -54,7 +54,7 @@ class ItemsController extends Controller
             'area' => 'nullable|max:255',
             'alcohol_content' => 'nullable|max:255',
             'distillery' => 'nullable|max:255',
-            'memo' => 'nullable|max:255',
+            'memo' => 'nullable|max:500',
             'image' => 'required|file|image|mimes:jpeg,png',
         ]);
         
@@ -72,6 +72,7 @@ class ItemsController extends Controller
         if ($request->hasfile('image')) {
         $image = $request->file('image');
         $path = Storage::disk('s3')->putFile('test', $image, 'public');
+        $item->image = $path;
         $item->image = Storage::disk('s3')->url($path);
         $item->save();
         return redirect('/');
@@ -134,8 +135,8 @@ class ItemsController extends Controller
             'area' => 'nullable|max:255',
             'alcohol_content' => 'nullable|max:255',
             'distillery' => 'nullable|max:255',
-            'memo' => 'nullable|max:255',
-            'image' => 'required|file|image|mimes:jpeg,png',
+            'memo' => 'nullable|max:500',
+            'image' => 'file|image|mimes:jpeg,png',
         ]);
         
         $item = Item::findOrFail($id);
@@ -153,11 +154,10 @@ class ItemsController extends Controller
         $image = $request->file('image');
         $path = Storage::disk('s3')->putFile('test', $image, 'public');
         $item->image = Storage::disk('s3')->url($path);
-        $item->save();
-        return redirect('/');
-        } else{
-            return back();
+        
         }
+        $item->save();
+        return redirect('');
     }
 
     /**
