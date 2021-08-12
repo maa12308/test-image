@@ -1,4 +1,3 @@
-<header class="sticky-top">
 <header class="mb-4">
     <nav class="navbar navbar-expand-sm navbar-light bg-light">
         {{-- トップページへのリンク --}}
@@ -12,11 +11,17 @@
             <ul class="navbar-nav mr-auto"></ul>
             <ul class="navbar-nav">
                 @if (Auth::check())
-                    {{-- 新規追加リンク --}}
-                    <li class="nav-item">{!! link_to_route('items.create', '追加', [], ['class' => 'nav-link']) !!}</li>        
-                    {{-- ログアウトへのリンク --}}
-                    <li class="nav-item">{!! link_to_route('logout.get', 'Logout', [], ['class' => 'nav-link']) !!}</li>
-            </ul>
+                 <li class="nav-item">{!! link_to_route('items.create', '追加', [], ['class' => 'nav-link']) !!}</li>
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">{{ Auth::user()->name }}</a>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                            {{-- ユーザ詳細ページへのリンク --}}
+                            <li class="dropdown-item">{!! link_to_route('users.show', 'My profile', ['user' => Auth::id()]) !!}</li>
+                            <li class="dropdown-divider"></li>
+                            {{-- ログアウトへのリンク --}}
+                            <li class="dropdown-item">{!! link_to_route('logout.get', 'Logout') !!}</li>
+                        </ul>
+                    </li>
                     
                 @else
                     {{-- ユーザ登録ページへのリンク --}}
@@ -28,5 +33,4 @@
             </ul>
         </div>
     </nav>
-</header>
 </header>

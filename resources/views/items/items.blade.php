@@ -1,7 +1,3 @@
-@extends('layouts.app')
-
-@section('content')
-
     @if (count($items) > 0)
    
     <div class="container">
@@ -28,6 +24,3 @@
     <div class="pagination justify-content-center">
     {{ $items->links() }}
     </div>
-    
-@endsection
-

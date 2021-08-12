@@ -16,7 +16,7 @@ class ItemsController extends Controller
      */
     public function index()
     {
-        $items = Item::paginate(6);
+        $items = Item::paginate(9);
 
         return view('items.index', [
             'items' => $items,
@@ -49,11 +49,11 @@ class ItemsController extends Controller
     {
         
         $request->validate([
-            'bland' => 'required|max:255',
-            'type' => 'nullable|max:255',
-            'area' => 'nullable|max:255',
-            'alcohol_content' => 'nullable|max:255',
-            'distillery' => 'nullable|max:255',
+            'bland' => 'required|max:100',
+            'type' => 'nullable|max:100',
+            'area' => 'nullable|max:100',
+            'alcohol_content' => 'nullable|max:100',
+            'distillery' => 'nullable|max:100',
             'memo' => 'nullable|max:500',
             'image' => 'required|file|image|mimes:jpeg,png',
         ]);
@@ -130,13 +130,13 @@ class ItemsController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'bland' => 'required|max:255',
-            'type' => 'nullable|max:255',
-            'area' => 'nullable|max:255',
-            'alcohol_content' => 'nullable|max:255',
-            'distillery' => 'nullable|max:255',
+            'bland' => 'required|max:100',
+            'type' => 'nullable|max:100',
+            'area' => 'nullable|max:100',
+            'alcohol_content' => 'nullable|max:100',
+            'distillery' => 'nullable|max:100',
             'memo' => 'nullable|max:500',
-            'image' => 'file|image|mimes:jpeg,png',
+            'image' => 'required|file|image|mimes:jpeg,png',
         ]);
         
         $item = Item::findOrFail($id);
