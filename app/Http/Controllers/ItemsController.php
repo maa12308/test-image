@@ -136,7 +136,7 @@ class ItemsController extends Controller
             'alcohol_content' => 'nullable|max:100',
             'distillery' => 'nullable|max:100',
             'memo' => 'nullable|max:500',
-            'image' => 'required|file|image|mimes:jpeg,png',
+            'image' => 'file|image|mimes:jpeg,png',
         ]);
         
         $item = Item::findOrFail($id);
