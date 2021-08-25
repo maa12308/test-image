@@ -35,7 +35,7 @@
         
         <div class="col-6">
             <div class="polaroids">
-            <img src="{{ $item->image }}" class="img-fluid">
+            <a href="{{ $item->image }}" data-lightbox="group"><img src="{{ $item->image }}"  class="img-fluid"></a>
             </div>
              @if (Auth::id() == $item->user_id)
             <div class="button">
