@@ -4,7 +4,7 @@
 
     <div class="user-profile">
         <div class="icon text-center">
-            <img class="rounded img-fluid" src="{{ Gravatar::get($user->email, ['size' => 100]) }}" alt="">
+            <img class="mr-2 rounded" src="{{ Gravatar::get($user->email, ['size' => 170]) }}" alt="">
                 </div>
         </div>
         <div class="name text-center">

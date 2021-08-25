@@ -11,7 +11,7 @@
     @endif
 
     <div class="form-group row justify-content-center">
-        <div class="col-6">
+        <div class="col-auto">
             {!! Form::model($item, ['route' => ['items.update', $item->id], 'method' => 'put', 'enctype' => 'multipart/form-data']) !!}
                 
                 <div class="form-group">
@@ -49,7 +49,7 @@
                </div>
 
 
-                {!! Form::submit('更新', ['class' => 'btn btn-outline-primary']) !!}
+                {!! Form::submit('更新', ['class' => 'btn btn-outline-primary btn-block']) !!}
 
             {!! Form::close() !!}
         </div>
