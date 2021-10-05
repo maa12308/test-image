@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="name text-center">
-            <h1>投稿一覧</h1>
+            <h1>お気に入り一覧</h1>
         </div>
     <div class="row">
        

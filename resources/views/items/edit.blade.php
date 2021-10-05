@@ -49,7 +49,7 @@
                </div>
 
 
-                {!! Form::submit('更新', ['class' => 'btn btn-outline-primary btn-block']) !!}
+                {!! Form::submit('更新', ['class' => 'btn btn-primary btn-block']) !!}
 
             {!! Form::close() !!}
         </div>

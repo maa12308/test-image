@@ -13,7 +13,7 @@
                 <img src="{{ $item->image }}" class="card-img-top">
                     <div class="card-body">
                     <h5 class="card-title">{{ $item->bland }}</h5>
-                    <a class="btn btn-outline-secondary btn-block" {!! link_to_route('items.show','詳細', ['item' => $item->id]) !!}</a>
+                    <a class="btn btn-secondary btn-block" {!! link_to_route('items.show','詳細', ['item' => $item->id]) !!}</a>
                     </div>
                 </div>
             </div>

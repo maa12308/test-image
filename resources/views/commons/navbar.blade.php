@@ -1,7 +1,7 @@
 <header class="mb-4">
     <nav class="navbar navbar-expand-sm navbar-light bg-light">
         {{-- トップページへのリンク --}}
-        <a class="navbar-brand" href="/">WHISKY</a>
+        <a class="navbar-brand" href="/">MY WHISKY</a>
 
         <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#nav-bar">
             <span class="navbar-toggler-icon"></span>
@@ -13,18 +13,10 @@
                 @if (Auth::check())
                 {{-- 新規追加ページのリンク --}}
                  <li class="nav-item">{!! link_to_route('items.create', '追加', [], ['class' => 'nav-link']) !!}</li>
-                 {{-- ユーザ一覧ページへのリンク --}}
-                    <li class="nav-item">{!! link_to_route('users.index', 'Users', [], ['class' => 'nav-link']) !!}</li>
-                    <li class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">{{ Auth::user()->name }}</a>
-                        <ul class="dropdown-menu dropdown-menu-right">
-                            {{-- ユーザ詳細ページへのリンク --}}
-                            <li class="dropdown-item">{!! link_to_route('users.show', 'マイページ', ['user' => Auth::id()]) !!}</li>
-                            <li class="dropdown-divider"></li>
-                            {{-- ログアウトへのリンク --}}
-                            <li class="dropdown-item">{!! link_to_route('logout.get', 'Logout') !!}</li>
-                        </ul>
-                    </li>
+                {{-- マイページへのリンク --}}
+                 <li class="nav-item">{!! link_to_route('users.show', 'マイページ', ['user' => Auth::id()], ['class' => 'nav-link']) !!}</li>
+            　　{{-- ログアウトへのリンク --}}
+                 <li class="nav-item">{!! link_to_route('logout.get', 'Logout', [], ['class' => 'nav-link']) !!}</li>
                     
                 @else
                     {{-- ユーザ登録ページへのリンク --}}
